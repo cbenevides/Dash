@@ -20,15 +20,11 @@ const users = [...Array(24)].map((_, index) => ({
   approvalstatus: sample(['Teste1', 'Teste2']),
   mdstartdate: sample(['Teste1', 'Teste2']),
   mdenddate: sample(['Teste1', 'Teste2']),
-  consistencias: fetch('http://wsih/PNP560/api/consultaConsistencia?solicitacao.numeroOperacao=605400602&solicitacao.status=0', {    
-    method: 'GET',    
-    withCredentials: true,    
-    crossorigin: true,    
-    mode: 'no-cors',     
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      },  
-  }).then((response) => console.log(response)),       
+  consistencias: axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
+  headers:{
+      "Access-Control-Allow-Origin": "*"        
+        }
+  }).then((response) => console.log(response)),      
 }));
 
 export default users;

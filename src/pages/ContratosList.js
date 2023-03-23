@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import axios from "axios";
 // @mui
 import {
   Card,
@@ -23,26 +23,21 @@ import {
   TablePagination,
 } from '@mui/material';
 // components
-import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
 import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // mock
-import USERLIST from '../_mock/user';
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'station', label: 'Station', alignRight: false },
-  { id: 'mdcode', label: 'MD Code', alignRight: false },
-  { id: 'distributor', label: 'Distributor', alignRight: false },
-  { id: 'masterdealname', label: 'Master deal Name', alignRight: false },
-  { id: 'currencycode', label: 'Currency Code', alignRight: false },
-  { id: 'totalbudget', label: 'Total Budget', alignRight: false },
-  { id: 'approvalstatus', label: 'Approval Status', alignRight: false },
-  { id: 'mdstartdate', label: 'MD Start Date', alignRight: false },
-  { id: 'mdenddate', label: 'MD End Date', alignRight: false },
+  { id: 'operacao', label: 'Operação', alignRight: false },
+  { id: 'adesao', label: 'Adesão', alignRight: false },
+  { id: 'codigoConsistencia', label: 'Código', alignRight: false },
+  { id: 'descricaoConsistencia', label: 'Descricao', alignRight: false },
+  { id: 'dataConsistencia', label: 'Data', alignRight: false },
+  { id: 'statusConsistencia', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
@@ -106,20 +101,24 @@ export default function ContratosList() {
     setOrderBy(property);
   };
 
+const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
+    headers:{ "Access-Control-Allow-Origin": "*" }});
+
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.station);
+      const newSelecteds = axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
+        headers:{ "Access-Control-Allow-Origin": "*" }});
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, station) => {
-    const selectedIndex = selected.indexOf(station);
+  const handleClick = (event, operacao) => {
+    const selectedIndex = selected.indexOf(operacao);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, station);
+      newSelected = newSelected.concat(selected, operacao);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -144,11 +143,11 @@ export default function ContratosList() {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - 11) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(operacaoList.result, getComparator(order, orderBy), filterName);
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+  const isNotFound = !11 && !!filterName;
   
   const navigate = useNavigate();
 
@@ -179,46 +178,38 @@ export default function ContratosList() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={11}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, station, distributor, currencycode, mdcode, masterdealname, totalbudget, approvalstatus, mdstartdate, mdenddate, consistencias } = row;
-                    const selectedUser = selected.indexOf(station) !== -1;
+                    const { id, operacao, adesao, codigoConsistencia, statusConsistencia, descricaoConsistencia, dataConsistencia } = row;
+                    const selectedUser = selected.indexOf(operacao) !== -1;
 
                     return (
                       <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, station)} />
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, operacao)} />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                            
                             <Typography variant="subtitle2" noWrap>
-                              {station}
+                              {operacao}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{mdcode}</TableCell>
+                        <TableCell align="left">{adesao}</TableCell>
 
-                        <TableCell align="left">{distributor}</TableCell>
-
-                        <TableCell align="left">{masterdealname ? 'Yes' : 'No'}</TableCell>
-
-                        <TableCell align="left">
-                          <Label color={(currencycode === 'Inativo' && 'error') || 'success'}>{sentenceCase(currencycode)}</Label>
-                        </TableCell>
-
-                        <TableCell align="left">{totalbudget}</TableCell>
-                        <TableCell align="left">{approvalstatus}</TableCell>
-                        <TableCell align="left">{mdstartdate}</TableCell>
-                        <TableCell align="left">{mdenddate}</TableCell>
-
+                        <TableCell align="left">{statusConsistencia ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{codigoConsistencia}</TableCell>
+                        <TableCell align="left">{descricaoConsistencia}</TableCell>
+                        <TableCell align="left">{dataConsistencia}</TableCell>
+     
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
                             <Iconify icon={'eva:more-vertical-fill'} />
@@ -264,7 +255,7 @@ export default function ContratosList() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={11}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
