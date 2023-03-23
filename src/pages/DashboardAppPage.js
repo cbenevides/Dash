@@ -26,35 +26,88 @@ export default function DashboardAppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard | PN </title>
       </Helmet>
 
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Monitoramento de Consistências
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 145" total={25} color="success" />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="New Users" total={1352831} color="info" icon={'ant-design:apple-filled'} />
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 421" total={50} color="warning"  />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Item Orders" total={1723315} color="warning" icon={'ant-design:windows-filled'} />
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 208" total={10} color="success" />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary title="Bug Reports" total={234} color="error" icon={'ant-design:bug-filled'} />
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 270" total={234} color="error" />
           </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 291" total={1250} color="error" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 348" total={100} color="warning"  />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 384" total={70} color="warning" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 391" total={10} color="success" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 162" total={5} color="success" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 276" total={34} color="success" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 333" total={1200} color="error" />
+          </Grid>
+
+          <Grid item xs={8} sm={4} md={2}>
+            <AppWidgetSummary title="Consistência 292" total={2100} color="error" />
+          </Grid>
+
+          <Grid item xs={24} md={12} lg={16}>
+            <AppConversionRates
+              title="Consistências"
+              subheader="Consistências Negadas"
+              chartData={[
+                { label: '145', value: 25 },
+                { label: '421', value: 50 },
+                { label: '208', value: 10 },
+                { label: '270', value: 234 },
+                { label: '291', value: 1250 },
+                { label: '348', value: 100 },
+                { label: '391', value: 10 },
+                { label: '162', value: 5 },
+                { label: '276', value: 34 },
+                { label: '333', value: 1200 },
+                { label: '292', value: 2100 },
+              ]}
+            />
+          </Grid>
+
 
           <Grid item xs={12} md={6} lg={8}>
             <AppWebsiteVisits
-              title="Website Visits"
-              subheader="(+43%) than last year"
+              title="Consistência por data"
+              subheader="(+43%) ultima semana"
               chartLabels={[
                 '01/01/2003',
                 '02/01/2003',
@@ -105,25 +158,6 @@ export default function DashboardAppPage() {
                 theme.palette.info.main,
                 theme.palette.warning.main,
                 theme.palette.error.main,
-              ]}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <AppConversionRates
-              title="Conversion Rates"
-              subheader="(+43%) than last year"
-              chartData={[
-                { label: 'Italy', value: 400 },
-                { label: 'Japan', value: 430 },
-                { label: 'China', value: 448 },
-                { label: 'Canada', value: 470 },
-                { label: 'France', value: 540 },
-                { label: 'Germany', value: 580 },
-                { label: 'South Korea', value: 690 },
-                { label: 'Netherlands', value: 1100 },
-                { label: 'United States', value: 1200 },
-                { label: 'United Kingdom', value: 1380 },
               ]}
             />
           </Grid>

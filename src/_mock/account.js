@@ -2,7 +2,7 @@
 
 const account = {
   displayName: 'Edemir Rodrigues',
-  email: 'edemir.junior_sysmanager@prestador.globo',
+  email: 'edemir.junior@prestador.com.br',
   photoURL: '/assets/images/avatars/Ravi-Dev.jpg',
 };
 

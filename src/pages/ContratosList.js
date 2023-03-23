@@ -159,17 +159,14 @@ export default function ContratosList() {
   return (
     <>
       <Helmet>
-        <title> +IBMS </title>
+        <title> PN </title>
       </Helmet>
 
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Contratos
+            Consistências negadas
           </Typography>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            Novo Contrato
-          </Button>
         </Stack>
 
         <Card>
@@ -189,7 +186,7 @@ export default function ContratosList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, station, distributor, currencycode, mdcode, masterdealname, totalbudget, approvalstatus, mdstartdate, mdenddate } = row;
+                    const { id, station, distributor, currencycode, mdcode, masterdealname, totalbudget, approvalstatus, mdstartdate, mdenddate, consistencias } = row;
                     const selectedUser = selected.indexOf(station) !== -1;
 
                     return (

@@ -1,7 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { sample } from 'lodash';
-
+import axios from "axios";
 // ----------------------------------------------------------------------
+
+axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const users = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
@@ -17,6 +20,15 @@ const users = [...Array(24)].map((_, index) => ({
   approvalstatus: sample(['Teste1', 'Teste2']),
   mdstartdate: sample(['Teste1', 'Teste2']),
   mdenddate: sample(['Teste1', 'Teste2']),
+  consistencias: fetch('http://wsih/PNP560/api/consultaConsistencia?solicitacao.numeroOperacao=605400602&solicitacao.status=0', {    
+    method: 'GET',    
+    withCredentials: true,    
+    crossorigin: true,    
+    mode: 'no-cors',     
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      },  
+  }).then((response) => console.log(response)),       
 }));
 
 export default users;
