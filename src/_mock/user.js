@@ -20,11 +20,11 @@ const users = [...Array(24)].map((_, index) => ({
   approvalstatus: sample(['Teste1', 'Teste2']),
   mdstartdate: sample(['Teste1', 'Teste2']),
   mdenddate: sample(['Teste1', 'Teste2']),
-  consistencias: axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
+  result: axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
   headers:{
       "Access-Control-Allow-Origin": "*"        
         }
-  }).then((response) => console.log(response)),      
+  })     
 }));
 
 export default users;

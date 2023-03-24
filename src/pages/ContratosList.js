@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 // @mui
@@ -87,6 +87,8 @@ export default function ContratosList() {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const [opeList, setOpeList] = useState([]);
+
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
   };
@@ -101,13 +103,27 @@ export default function ContratosList() {
     setOrderBy(property);
   };
 
-const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
-    headers:{ "Access-Control-Allow-Origin": "*" }});
+  useEffect(() => {
+    axios
+        .get('https://localhost:57818/consulta-consistencia?ade=teste'
+        ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+        .then((res) => {
+            console.log(res);
+            setOpeList(res.data.result);
+        })
+        .catch((err) => {
+            console.error('Error:', err);
+        });
+}, []);
+
+
+
+  // const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
+  //   headers:{ "Access-Control-Allow-Origin": "*" }});
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = axios.get('https://localhost:57818/consulta-consistencia?ade=teste',{
-        headers:{ "Access-Control-Allow-Origin": "*" }});
+      const newSelecteds = opeList.map((n) => n.station);
       setSelected(newSelecteds);
       return;
     }
@@ -143,11 +159,11 @@ const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ad
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - 11) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - opeList.length) : 0;
 
-  const filteredUsers = applySortFilter(operacaoList.result, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(opeList, getComparator(order, orderBy), filterName);
 
-  const isNotFound = !11 && !!filterName;
+  const isNotFound = !filteredUsers.length && !!filterName;
   
   const navigate = useNavigate();
 
@@ -178,7 +194,7 @@ const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ad
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={11}
+                  rowCount={opeList.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
@@ -205,10 +221,10 @@ const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ad
 
                         <TableCell align="left">{adesao}</TableCell>
 
-                        <TableCell align="left">{statusConsistencia ? 'Yes' : 'No'}</TableCell>
                         <TableCell align="left">{codigoConsistencia}</TableCell>
                         <TableCell align="left">{descricaoConsistencia}</TableCell>
                         <TableCell align="left">{dataConsistencia}</TableCell>
+                        <TableCell align="left">{statusConsistencia}</TableCell>
      
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
@@ -255,7 +271,7 @@ const operacaoList = axios.get('https://localhost:57818/consulta-consistencia?ad
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={11}
+            count={opeList.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

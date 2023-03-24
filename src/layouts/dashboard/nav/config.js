@@ -12,7 +12,7 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'Contratos',
+    title: 'Consistências Negadas',
     path: '/dashboard/contratos',
     icon: icon('ic_document'),
   },
