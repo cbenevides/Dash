@@ -32,12 +32,10 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'operacao', label: 'Operação', alignRight: false },
-  { id: 'adesao', label: 'Adesão', alignRight: false },
-  { id: 'codigoConsistencia', label: 'Código', alignRight: false },
-  { id: 'descricaoConsistencia', label: 'Descricao', alignRight: false },
-  { id: 'dataConsistencia', label: 'Data', alignRight: false },
-  { id: 'statusConsistencia', label: 'Status', alignRight: false },
+  { id: 'numeroOperacao', label: 'Operação', alignRight: false },
+  { id: 'numeroOcorrencia', label: 'ocorrência', alignRight: false },
+  { id: 'descricao', label: 'Descrição', alignRight: false },
+  { id: 'dataOcorrencia', label: 'Data', alignRight: false },
   { id: '' },
 ];
 
@@ -72,7 +70,7 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function ContratosList() {
+export default function OcorrenciasPage() {
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -105,7 +103,7 @@ export default function ContratosList() {
 
   useEffect(() => {
     axios
-        .get('https://localhost:63080/consulta-consistencia?ade=teste'
+        .get('https://localhost:63080/consulta-ocorrencias?ade=teste'
         ,{headers:{ "Access-Control-Allow-Origin": "*" }})
         .then((res) => {
             console.log(res);
@@ -126,11 +124,11 @@ export default function ContratosList() {
     setSelected([]);
   };
 
-  const handleClick = (event, operacao) => {
-    const selectedIndex = selected.indexOf(operacao);
+  const handleClick = (event, numeroOperacao) => {
+    const selectedIndex = selected.indexOf(numeroOperacao);
     let newSelected = [];
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, operacao);
+      newSelected = newSelected.concat(selected, numeroOperacao);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -163,10 +161,6 @@ export default function ContratosList() {
   
   const navigate = useNavigate();
 
-  const navigateToContacts = () => {
-    navigate('/dashboard/aprovacao');
-  };
-
   return (
     <>
       <Helmet>
@@ -176,7 +170,7 @@ export default function ContratosList() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Consistências negadas
+            Fluxo da Operação
           </Typography>
         </Stack>
 
@@ -197,30 +191,28 @@ export default function ContratosList() {
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, operacao, adesao, codigoConsistencia, statusConsistencia, descricaoConsistencia, dataConsistencia } = row;
-                    const selectedUser = selected.indexOf(operacao) !== -1;
+                    const { id, numeroOperacao, numeroOcorrencia, descricao, dataOcorrencia } = row;
+                    const selectedUser = selected.indexOf(numeroOperacao) !== -1;
 
                     return (
                       <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
                         <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, operacao)} />
+                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, numeroOperacao)} />
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
                            
                             <Typography variant="subtitle2" noWrap>
-                              {operacao}
+                              {numeroOperacao}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{adesao}</TableCell>
+                        <TableCell align="left">{numeroOcorrencia}</TableCell>
 
-                        <TableCell align="left">{codigoConsistencia}</TableCell>
-                        <TableCell align="left">{descricaoConsistencia}</TableCell>
-                        <TableCell align="left">{dataConsistencia}</TableCell>
-                        <TableCell align="left">{statusConsistencia === '0' ? 'Negada' : 'Liberada'}</TableCell>
+                        <TableCell align="left">{descricao}</TableCell>
+                        <TableCell align="left">{dataOcorrencia}</TableCell>
      
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={handleOpenMenu}>
@@ -275,35 +267,6 @@ export default function ContratosList() {
           />
         </Card>
       </Container>
-{/* 
-      <Popover
-        open={Boolean(open)}
-        anchorEl={open}
-        onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: {
-            p: 1,
-            width: 140,
-            '& .MuiMenuItem-root': {
-              px: 1,
-              typography: 'body2',
-              borderRadius: 0.75,
-            },
-          },
-        }}
-      >
-        <MenuItem sx={{color: 'success.main'}} onClick={navigateToContacts}>
-          <Iconify icon={'eva:checkmark-circle-2-fill'} sx={{ mr: 2 }} />
-          Aprovar
-        </MenuItem>
-
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:close-circle-fill'} sx={{ mr: 2 }} />
-          Reprovar
-        </MenuItem>
-      </Popover> */}
     </>
   );
 }

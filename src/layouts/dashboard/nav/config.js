@@ -16,6 +16,11 @@ const navConfig = [
     path: '/dashboard/contratos',
     icon: icon('ic_document'),
   },
+  {
+    title: 'Fluxo da Operação',
+    path: '/dashboard/ocorrencias',
+    icon: icon('ic_document'),
+  },
   // {
   //   title: 'product',
   //   path: '/dashboard/products',

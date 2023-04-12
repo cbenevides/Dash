@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import AprovaContrato from './pages/AprovaContrato';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import OcorrenciasPage from './pages/OcorrenciasPage';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +23,7 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'contratos', element: <ContratosList /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'ocorrencias', element: <OcorrenciasPage /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
