@@ -26,6 +26,16 @@ export default function DashboardAppPage() {
   const theme = useTheme();
   const [consist145, setConsist145] = useState([]);
   const [consist421, setConsist421] = useState([]);
+  const [consist208, setConsist208] = useState([]);
+  const [consist270, setConsist270] = useState([]);
+  const [consist291, setConsist291] = useState([]);
+  const [consist348, setConsist348] = useState([]);
+  const [consist384, setConsist384] = useState([]);
+  const [consist391, setConsist391] = useState([]);
+  const [consist162, setConsist162] = useState([]);
+  const [consist276, setConsist276] = useState([]);
+  const [consist333, setConsist333] = useState([]);
+  const [consist292, setConsist292] = useState([]);
 
   useEffect(() => {
     axios
@@ -54,6 +64,135 @@ useEffect(() => {
       });
 }, []);
 
+useEffect(async () => {
+  await  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=208&consistenciaCorte=270'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist208(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=270&consistenciaCorte=270'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist270(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=291&consistenciaCorte=421'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist291(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=348&consistenciaCorte=208'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist348(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=384&consistenciaCorte=291'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist384(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=391&consistenciaCorte=291'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist391(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=162&consistenciaCorte=162'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist162(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=276&consistenciaCorte=276'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist276(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=333&consistenciaCorte=333'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist333(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=292&consistenciaCorte=292'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist292(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
 
   return (
     <>
@@ -73,47 +212,58 @@ useEffect(() => {
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 421" total={consist421.quantidade} tempo={`${consist421.tempoParada} Min`} color="warning"  />
+            <AppWidgetSummary title="Consistência 421" total={consist421.quantidade} tempo={`${consist421.tempoParada} Min`}  
+            color= {consist421.quantidade < 50 ? "success" : (consist421.quantidade >= 50 && consist421.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 208" total={10} color="success" />
+            <AppWidgetSummary title="Consistência 208" total={consist208.quantidade} tempo={`${consist208.tempoParada} Min`}  
+            color= {consist208.quantidade < 50 ? "success" : (consist208.quantidade >= 50 && consist208.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 270" total={234} color="error" />
+            <AppWidgetSummary title="Consistência 270" total={consist270.quantidade} tempo={`${consist270.tempoParada} Min`}  
+            color= {consist270.quantidade < 50 ? "success" : (consist270.quantidade >= 50 && consist270.quantidade <= 100 ? "warning" : "error")}  />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 291" total={1250} color="error" />
+            <AppWidgetSummary title="Consistência 291" total={consist291.quantidade} tempo={`${consist291.tempoParada} Min`}  
+            color= {consist291.quantidade < 50 ? "success" : (consist291.quantidade >= 50 && consist291.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 348" total={100} color="warning"  />
+            <AppWidgetSummary title="Consistência 348" total={consist348.quantidade} tempo={`${consist348.tempoParada} Min`}  
+            color= {consist348.quantidade < 50 ? "success" : (consist348.quantidade >= 50 && consist348.quantidade <= 100 ? "warning" : "error")}  />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 384" total={70} color="warning" />
+            <AppWidgetSummary title="Consistência 384" total={consist384.quantidade} tempo={`${consist384.tempoParada} Min`}  
+            color= {consist384.quantidade < 50 ? "success" : (consist384.quantidade >= 50 && consist384.quantidade <= 100 ? "warning" : "error")}  />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 391" total={10} color="success" />
+            <AppWidgetSummary title="Consistência 391" total={consist391.quantidade} tempo={`${consist391.tempoParada} Min`}  
+            color= {consist391.quantidade < 50 ? "success" : (consist391.quantidade >= 50 && consist391.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 162" total={5} color="success" />
+            <AppWidgetSummary title="Consistência 162" total={consist162.quantidade} tempo={`${consist162.tempoParada} Min`}  
+            color= {consist162.quantidade < 50 ? "success" : (consist162.quantidade >= 50 && consist162.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 276" total={34} color="success" />
+            <AppWidgetSummary title="Consistência 276" total={consist276.quantidade} tempo={`${consist276.tempoParada} Min`}  
+            color= {consist276.quantidade < 50 ? "success" : (consist276.quantidade >= 50 && consist276.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 333" total={1200} color="error" />
+            <AppWidgetSummary title="Consistência 333" total={consist333.quantidade} tempo={`${consist333.tempoParada} Min`}  
+            color= {consist333.quantidade < 50 ? "success" : (consist333.quantidade >= 50 && consist333.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 292" total={2100} color="error" />
+            <AppWidgetSummary title="Consistência 292" total={consist292.quantidade} tempo={`${consist292.tempoParada} Min`}  
+            color= {consist292.quantidade < 50 ? "success" : (consist292.quantidade >= 50 && consist292.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={24} md={12} lg={16}>
