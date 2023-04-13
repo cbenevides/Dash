@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
@@ -22,6 +24,36 @@ import {
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const [consist145, setConsist145] = useState([]);
+  const [consist421, setConsist421] = useState([]);
+
+  useEffect(() => {
+    axios
+        .get('https://localhost:63080/consulta-consistencia-parada?consistencia=145&consistenciaCorte=270'
+        ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+        .then((res) => {
+            console.log(res);
+            setConsist145(res.data.result);
+        })
+        .catch((err) => {
+            console.error('Error:', err);
+        });
+}, []);
+
+
+useEffect(() => {
+  axios
+      .get('https://localhost:63080/consulta-consistencia-parada?consistencia=421&consistenciaCorte=270'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist421(res.data.result);
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+}, []);
+
 
   return (
     <>
@@ -36,11 +68,12 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 145" total={25} color="success" />
+            <AppWidgetSummary title="Consistência 145" total={consist145.quantidade} tempo={`${consist145.tempoParada} Min`}  
+            color= {consist145.quantidade < 50 ? "success" : (consist145.quantidade >= 50 && consist145.quantidade <= 100 ? "warning" : "error")} />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 421" total={50} color="warning"  />
+            <AppWidgetSummary title="Consistência 421" total={consist421.quantidade} tempo={`${consist421.tempoParada} Min`} color="warning"  />
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
