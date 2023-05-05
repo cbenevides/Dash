@@ -6,6 +6,7 @@ import axios from "axios";
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 // components
+import ComponentSkeleton from '../components/skeleton/ComponentSkeleton';
 import Iconify from '../components/iconify';
 // sections
 import {
@@ -37,58 +38,66 @@ export default function DashboardAppPage() {
   const [consist333, setConsist333] = useState([]);
   const [consist292, setConsist292] = useState([]);
 
+
+  const [loading145, setloading145] = useState(true);
+  const [loading421, setloading421] = useState(true);
+  const [loading208, setloading208] = useState(true);
+  const [loading270, setloading270] = useState(true);
+  const [loading291, setloading291] = useState(true);
+  const [loading348, setloading348] = useState(true);
+  const [loading384, setloading384] = useState(true);
+  const [loading391, setloading391] = useState(true);
+  const [loading162, setloading162] = useState(true);
+  const [loading276, setloading276] = useState(true);
+  const [loading333, setloading333] = useState(true);
+  const [loading292, setloading292] = useState(true);
+
+
+
   useEffect(() => {
-    axios
-        .get('https://localhost:63080/consulta-consistencia-parada?consistencia=145&consistenciaCorte=270'
-        ,{headers:{ "Access-Control-Allow-Origin": "*" }})
-        .then((res) => {
-            console.log(res);
-            setConsist145(res.data.result);
-        })
-        .catch((err) => {
-            console.error('Error:', err);
-        });
+      axios.get('https://localhost:63080/consulta-consistencia-parada?consistencia=145&consistenciaCorte=270'
+      ,{headers:{ "Access-Control-Allow-Origin": "*" }})
+      .then((res) => {
+          console.log(res);
+          setConsist145(res.data.result);
+          setloading145(false);
+      });
 }, []);
 
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=421&consistenciaCorte=270'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist421(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
+          setloading421(false);
       });
 }, []);
 
-useEffect(async () => {
-  await  axios
+
+useEffect(() => {
+  axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=208&consistenciaCorte=270'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist208(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading208(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=270&consistenciaCorte=270'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist270(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading270(false);
+        });
+      }, []);
 
 useEffect(() => {
   axios
@@ -97,102 +106,86 @@ useEffect(() => {
       .then((res) => {
           console.log(res);
           setConsist291(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading291(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+   axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=348&consistenciaCorte=208'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist348(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading348(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=384&consistenciaCorte=291'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist384(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading384(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=391&consistenciaCorte=291'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist391(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading391(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=162&consistenciaCorte=162'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist162(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading162(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+    axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=276&consistenciaCorte=276'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist276(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading276(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+     axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=333&consistenciaCorte=333'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist333(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading333(false);
+        });
+      }, []);
 
 useEffect(() => {
-  axios
+     axios
       .get('https://localhost:63080/consulta-consistencia-parada?consistencia=292&consistenciaCorte=292'
       ,{headers:{ "Access-Control-Allow-Origin": "*" }})
       .then((res) => {
           console.log(res);
           setConsist292(res.data.result);
-      })
-      .catch((err) => {
-          console.error('Error:', err);
-      });
-}, []);
+          setloading292(false);
+        });
+      }, []);
 
   return (
     <>
@@ -204,68 +197,118 @@ useEffect(() => {
         <Typography variant="h4" sx={{ mb: 5 }}>
           Monitoramento de Consistências
         </Typography>
-
+       
         <Grid container spacing={3}>
+
           <Grid item xs={8} sm={4} md={2}>
-            <AppWidgetSummary title="Consistência 145" total={consist145.quantidade} tempo={`${consist145.tempoParada} Min`}  
-            color= {consist145.quantidade < 50 ? "success" : (consist145.quantidade >= 50 && consist145.quantidade <= 100 ? "warning" : "error")} />
+          <div className='skeleton-container'>
+            {loading145 && <ComponentSkeleton />}
+            {!loading145 && 
+
+              <AppWidgetSummary title="Consistência 145" total={consist145.quantidade} tempo={`${consist145.tempoParada} Min`}  
+              color= {consist145.quantidade < 50 ? "success" : (consist145.quantidade >= 50 && consist145.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading421 && <ComponentSkeleton />}
+            {!loading421 && 
             <AppWidgetSummary title="Consistência 421" total={consist421.quantidade} tempo={`${consist421.tempoParada} Min`}  
             color= {consist421.quantidade < 50 ? "success" : (consist421.quantidade >= 50 && consist421.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading208 && <ComponentSkeleton />}
+            {!loading208 && 
             <AppWidgetSummary title="Consistência 208" total={consist208.quantidade} tempo={`${consist208.tempoParada} Min`}  
             color= {consist208.quantidade < 50 ? "success" : (consist208.quantidade >= 50 && consist208.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading270 && <ComponentSkeleton />}
+            {!loading270 && 
             <AppWidgetSummary title="Consistência 270" total={consist270.quantidade} tempo={`${consist270.tempoParada} Min`}  
             color= {consist270.quantidade < 50 ? "success" : (consist270.quantidade >= 50 && consist270.quantidade <= 100 ? "warning" : "error")}  />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading291 && <ComponentSkeleton />}
+            {!loading291 && 
             <AppWidgetSummary title="Consistência 291" total={consist291.quantidade} tempo={`${consist291.tempoParada} Min`}  
             color= {consist291.quantidade < 50 ? "success" : (consist291.quantidade >= 50 && consist291.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading348 && <ComponentSkeleton />}
+            {!loading348 && 
             <AppWidgetSummary title="Consistência 348" total={consist348.quantidade} tempo={`${consist348.tempoParada} Min`}  
             color= {consist348.quantidade < 50 ? "success" : (consist348.quantidade >= 50 && consist348.quantidade <= 100 ? "warning" : "error")}  />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading384 && <ComponentSkeleton />}
+            {!loading384 && 
             <AppWidgetSummary title="Consistência 384" total={consist384.quantidade} tempo={`${consist384.tempoParada} Min`}  
             color= {consist384.quantidade < 50 ? "success" : (consist384.quantidade >= 50 && consist384.quantidade <= 100 ? "warning" : "error")}  />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading391 && <ComponentSkeleton />}
+            {!loading391 && 
             <AppWidgetSummary title="Consistência 391" total={consist391.quantidade} tempo={`${consist391.tempoParada} Min`}  
             color= {consist391.quantidade < 50 ? "success" : (consist391.quantidade >= 50 && consist391.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading162 && <ComponentSkeleton />}
+            {!loading162 && 
             <AppWidgetSummary title="Consistência 162" total={consist162.quantidade} tempo={`${consist162.tempoParada} Min`}  
             color= {consist162.quantidade < 50 ? "success" : (consist162.quantidade >= 50 && consist162.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading276 && <ComponentSkeleton />}
+            {!loading276 && 
             <AppWidgetSummary title="Consistência 276" total={consist276.quantidade} tempo={`${consist276.tempoParada} Min`}  
             color= {consist276.quantidade < 50 ? "success" : (consist276.quantidade >= 50 && consist276.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading333 && <ComponentSkeleton />}
+            {!loading333 && 
             <AppWidgetSummary title="Consistência 333" total={consist333.quantidade} tempo={`${consist333.tempoParada} Min`}  
             color= {consist333.quantidade < 50 ? "success" : (consist333.quantidade >= 50 && consist333.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
 
           <Grid item xs={8} sm={4} md={2}>
+          <div className='skeleton-container'>
+            {loading292 && <ComponentSkeleton />}
+            {!loading292 && 
             <AppWidgetSummary title="Consistência 292" total={consist292.quantidade} tempo={`${consist292.tempoParada} Min`}  
             color= {consist292.quantidade < 50 ? "success" : (consist292.quantidade >= 50 && consist292.quantidade <= 100 ? "warning" : "error")} />
+          }</div>
           </Grid>
-
+{/* 
           <Grid item xs={24} md={12} lg={16}>
             <AppConversionRates
               title="Consistências"
@@ -429,6 +472,7 @@ useEffect(() => {
               ]}
             />
           </Grid>
+              */}
         </Grid>
       </Container>
     </>
