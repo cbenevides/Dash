@@ -341,6 +341,7 @@ useEffect(() => {
             color= {consistData[9].quantidade < 50 ? "success" : (consistData[9].quantidade >= 50 && consistData[9].quantidade <= 100 ? "warning" : "error")} />
           }</div>
           </Grid>
+          
 
           <Grid item xs={8} sm={4} md={2}>
           <div className='skeleton-container'>
